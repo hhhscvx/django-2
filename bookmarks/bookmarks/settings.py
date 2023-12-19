@@ -131,3 +131,8 @@ MEDIA_ROOT = BASE_DIR / 'media'  # медиа-файлы будут сохран
 
 LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'Asia/Yekaterinburg'
+
+AUTHENTICATION_BACKENDS = [  # Проверяет по каждому варианту аутентификации, чтобы хотя бы один подошел
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
