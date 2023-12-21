@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Image(models.Model):
@@ -15,8 +16,8 @@ class Image(models.Model):
     description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)  # auto_now_add - устанавлеваем now время и дату при создании
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL,  # Многие ко многим понравившееся image и user`ы
-                                       related_name='images_liked',
-                                       blank=True)
+                                        related_name='images_liked',
+                                        blank=True)
 
     class Meta:
         indexes = [
@@ -32,3 +33,6 @@ class Image(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)  # делаем slug по title`у
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('images:detail', args=[self.id, self.slug])  # ссылаемся на urls detail через section images

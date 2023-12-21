@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6a41173c-bc58-4875-a4b4-b4ad634b2c2d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookmarks/account/templates/account/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/account/templates/account/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/account/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/account/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/bookmarks/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/bookmarks/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookmarks/bookmarks/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/bookmarks/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/images/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/images/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/images/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/images/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
