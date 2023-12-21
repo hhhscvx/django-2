@@ -4,6 +4,9 @@
 
 {% block content %}
   <h1>Главная</h1>
-  <p>Добро пожаловать на главную. Вы можете <a href="{% url 'edit' %}">редактировать свой профиль</a>
-  или <a href="{% url 'password_change' %}">изменить пароль</a></p>
+  {% with total_images_created=request.user.images_created.count %}
+  <p>Добро пожаловать на главную. Загружено картинок: {{ total_images_created }}</p>
+  {% endwith %}
+  <p>Кликните по кнопке чтобы перейти к управлению закладками картинок с других веб-сайтов -><a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="button">Добавить закладку</a></p>
+  <p> Вы также можете <a href="{% url 'edit' %}">редактировать свой профиль</a> или <a href="{% url 'password_change' %}">изменить пароль</a></p>
 {% endblock %}
