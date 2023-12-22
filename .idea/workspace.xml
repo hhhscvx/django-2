@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6a41173c-bc58-4875-a4b4-b4ad634b2c2d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/account/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/account/static/css/base.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/account/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/account/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/bookmarks/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/bookmarks/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookmarks/images/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookmarks/images/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmarks/images/templates/images/image/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/templates/images/image/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/images/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmarks/images/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookmarks/images/views.py" afterDir="false" />
     </list>
@@ -59,7 +59,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-7a29c1521ef0-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
+        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13135.95" />
       </set>
     </attachedChunks>
   </component>

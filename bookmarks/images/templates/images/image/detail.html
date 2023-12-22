@@ -4,27 +4,88 @@
 
 {% block content %}
   <h1>{{ image.title }}</h1>
-  <img src="{{ image.image.url }}" class="image-detail">
-  {% with total_likes=image.users_like.count %}
+  {% load thumbnail %}
+  <a href="{{ image.image.url }}">
+    <img src="{% thumbnail image.image 300x0 %}" class="image-detail">  <!-- макс ширина 300 а высота будет пропорциональна -->
+  </a>
+  {% with total_likes=image.users_like.count users_like=image.users_like.all %}  <!-- users_like - список лайкнувших -->
     <div class="image-info">
       <div>
         <span class="count">
-          {{ total_likes }} like{{ total_likes|pluralize }}
+          <span class="total">{{ total_likes }}</span>
+          like{{ total_likes|pluralize }}
         </span>
+        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like"
+    class="like button">
+          <!-- action == like если пользователь в списке лайкнувших, иначе action == unlike -->
+          {% if request.user not in users_like %}
+            Like  <!-- если не лайкнувший - отобразить Like, и наоборот -->
+          {% else %}
+            Unlike
+          {% endif %}
+        </a>
       </div>
-        {{ image.desctiption|linebreaks }}
+      {{ image.description|linebreaks }}
     </div>
     <div class="image-likes">
-      {% for user in image.users_like.all %}
+      {% for user in users_like %}
         <div>
-          {% if user.profile.photo %}
-            <img src="{{ user.profile.photo }}">
-          {% endif %}
-          <p>{{ user.username }}</p>
+          <figure></figure>
+            {% if user.profile.photo %}
+              <img src="{{ user.profile.photo.url }}">
+            {% endif %}
+            <figcaption>
+              {{ user.username }}
+            </figcaption>
+          </figure>
         </div>
       {% empty %}
-        Никто пока не оценил эту картинку.
+        Nobody likes this image yet.
       {% endfor %}
     </div>
   {% endwith %}
+{% endblock %}
+
+{% block domready %}
+  const url = '{% url "images:like" %}';  // Ссылка на картинку
+  // опции для отправки, включая csrf и режим
+  var options = {
+    method: 'POST',
+    headers: {'X-CSRFToken': csrftoken},
+    mode: 'same-origin'
+  }  // режим что запрос делается к тому же источнику
+
+  document.querySelector('a.like')
+          .addEventListener('click', function(e){
+    e.preventDefault();  // при клике на лайк, предотвращается стандартное поведение функции ссылки чтобы не переходить по ссылке на url
+    var likeButton = this;  // данная кнопочка присваивается likeButton
+
+    // добавить тело запроса
+    var formData = new FormData();  // словарь с данными для отправки
+    formData.append('id', likeButton.dataset.id);  // добавляем id и action кнопки лайка
+    formData.append('action', likeButton.dataset.action);  // dataset это аргументы у которых в начале data-
+    options['body'] = formData;  // данные отправляются в тело запроса
+
+    // отправить HTTP-запрос
+    // используется Fetch API
+    // затем преобразует в json
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      if (data['status'] === 'ok')
+      {
+        var previousAction = likeButton.dataset.action;
+
+        // Присвоить новое значение после клика (меняем атрибут и текст)
+        var action = previousAction === 'like' ? 'unlike' : 'like';
+        likeButton.dataset.action = action;
+        likeButton.innerHTML = action;
+
+        // обновить кол-во лайков
+        var likeCount = document.querySelector('span.count .total');
+        var totalLikes = parseInt(likeCount.innerHTML);
+        likeCount.innerHTML = previousAction === 'like' ? totalLikes + 1 : totalLikes - 1;
+      }
+    })
+  });
 {% endblock %}
