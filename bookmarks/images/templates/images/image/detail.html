@@ -3,7 +3,7 @@
 {% block title %}{{ image.title }}{% endblock %}
 
 {% block content %}
-  <h1>{{ image.title }}</h1>
+  <h1>"{{ image.title }}" <i>by <a href="https://127.0.0.1:8000/account/users/{{ image.user }}/">{{ image.user }}</a></i></h1>
   {% load thumbnail %}
   <a href="{{ image.image.url }}">
     <img src="{% thumbnail image.image 300x0 %}" class="image-detail">  <!-- макс ширина 300 а высота будет пропорциональна -->
@@ -32,10 +32,10 @@
         <div>
           <figure></figure>
             {% if user.profile.photo %}
-              <img src="{{ user.profile.photo.url }}">
+            <a href="{{ user.get_absolute_url }}"><img src="{{ user.profile.photo.url }}"></a>
             {% endif %}
             <figcaption>
-              {{ user.username }}
+              <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
             </figcaption>
           </figure>
         </div>

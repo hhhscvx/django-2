@@ -9,4 +9,5 @@
   {% endwith %}
   <p>Кликните по кнопке чтобы перейти к управлению закладками картинок с других веб-сайтов -><a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="button">Добавить закладку</a></p>
   <p> Вы также можете <a href="{% url 'edit' %}">редактировать свой профиль</a> или <a href="{% url 'password_change' %}">изменить пароль</a></p>
+  <p><a href="https://127.0.0.1:8000/images/create/?title=your_title&url=pin.jpg">Загрузить картинку</a></p>
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}Редактировать{% endblock %}
 
 {% block content %}
 <h1>Редактировать аккаунт</h1>
 <form method="post" enctype="multipart/form-data">  <!-- enctype указан для закачивания файлов на сайт -->
+    <img src="{% thumbnail user.profile.photo 180x180 %}" class="user-detail">
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     {% csrf_token %}

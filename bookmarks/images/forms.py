@@ -9,9 +9,6 @@ class ImageCreateForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['title', 'url', 'description']
-        widgets = {
-            'url': forms.HiddenInput  # <input type=hidden>, используем это чтобы поле не было видимым для пользователя
-        }
 
     def clean_url(self):
         url = self.cleaned_data['url']
