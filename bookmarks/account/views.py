@@ -8,6 +8,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
+from actions.utils import create_action
+from actions.models import Action
 
 
 def user_login(request):
@@ -33,9 +35,17 @@ def user_login(request):
 
 @login_required  # для просмотра страницы, пользователь должен быть аунтефицирован, иначе будет направлен для авторизации
 def dashboard(request):
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+    if following_ids:
+        actions = actions.filter(user_id__in=following_ids)  # Если подписан на кого-то, показывать только их действия
+    # select_related возвращает сразу user и profile (JOIN из SQL)
+    actions = actions.select_related('user', 'user__profile') \
+        .prefetch_related('target')[:10]  # prefetch предварительная загрузка связанных (target) объектов
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard',
+                   'actions': actions})
 
 
 def register(request):
@@ -46,6 +56,7 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])  # Задаем пароль через указанный в форме пароль
             new_user.save()  # сохраняем
             Profile.objects.create(user=new_user)  # При регистрации создаем профиль пользователя
+            create_action(new_user, 'создал аккаунт')
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
@@ -114,6 +125,7 @@ def user_follow(request):
                 Contact.objects.get_or_create(  # юзер который отправил запрос становится подписчиком второго юзера
                     user_from=request.user,
                     user_to=user)
+                create_action(request.user, 'подписался на', user)
             else:
                 Contact.objects.filter(user_from=request.user,
                                        # связь между подписчиком и тем на кого он подписан удаляется
