@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from django.contrib.auth.decorators import login_required
-from .models import Profile
+from .models import Profile, Contact
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 
 
 def user_login(request):
@@ -97,3 +98,25 @@ def user_detail(request, username):
                   'account/user/detail.html',
                   {'section': 'people',
                    'user': user})
+
+
+@login_required
+@require_POST
+def user_follow(request):
+    user_id = request.POST.get('id')  # Извлекается из POST запроса, отправленного клиентом
+    action = request.POST.get('action')
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)  # пользователь, на которого подписываются
+            if action == 'follow':
+                Contact.objects.get_or_create(  # юзер который отправил запрос становится подписчиком второго юзера
+                    user_from=request.user,
+                    user_to=user)
+            else:
+                Contact.objects.filter(user_from=request.user,
+                                       # связь между подписчиком и тем на кого он подписан удаляется
+                                       user_to=user).delete()
+            return JsonResponse({'status': 'ok'})  # на основе этого статуса, например, можно показать messages
+        except User.DoesNotExists:
+            return JsonResponse({'status': 'error'})  # JsonRespons`ы мы будем использовать в js скриптах
+    return JsonResponse({'status': 'error'})
