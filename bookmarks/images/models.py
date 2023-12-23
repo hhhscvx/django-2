@@ -8,8 +8,8 @@ class Image(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,  # Указывает на auth на данный момент пользователя
                              related_name='images_created',  # по этому имени обращаемся к связанным images с user`ом
                              on_delete=models.CASCADE)
-    title = models.CharField(max_length=24)
-    slug = models.SlugField(max_length=24,
+    title = models.CharField(max_length=48)
+    slug = models.SlugField(max_length=48,
                             blank=True)
     image = models.ImageField(upload_to='%Y/%m/%d')
     url = models.URLField()

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -161,3 +162,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '51817971'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'w3MQl7KDwjOE95Vlrkf4'
+
+# переопределение get_absolute_url - теперь в этом методе для auth.user будет использоваться переопределенный вариант
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail',
+                                        args=[u.username])
+}
